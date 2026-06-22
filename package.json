@@ -1,0 +1,12 @@
+{
+  "name": "amsterdam-stroopwafels",
+  "version": "1.0.0",
+  "description": "The best stroopwafel spots in Amsterdam",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
