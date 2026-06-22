@@ -376,8 +376,46 @@ const spots = [
 
 const grid = document.getElementById("grid");
 
+// --- Map setup ---
+const map = L.map("map", { scrollWheelZoom: false }).setView([52.366, 4.892], 14);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+function pinIcon(n) {
+  return L.divIcon({
+    className: "",
+    html: `<div class="marker-pin"><span>${n}</span></div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30]
+  });
+}
+
+const markers = spots.map((s, i) => {
+  const m = L.marker([s.lat, s.lng], { icon: pinIcon(i + 1) });
+  m.bindPopup(
+    `<div class="pop-name">${s.name}</div>
+     <div class="pop-meta">★ <b>${s.rating.toFixed(1)}</b> · ${s.count.toLocaleString()} reviews · ${s.price}<br>${s.area}</div>
+     <a class="pop-link" href="${s.maps}" target="_blank" rel="noopener">Open in Google Maps ↗</a>`
+  );
+  return m;
+});
+
 function render(filter){
   grid.innerHTML = "";
+  const bounds = [];
+  spots.forEach((s, i) => {
+    const show = filter === "all" || s.cats.includes(filter);
+    if (show) {
+      markers[i].addTo(map);
+      bounds.push([s.lat, s.lng]);
+    } else {
+      map.removeLayer(markers[i]);
+    }
+  });
+
   spots
     .filter(s => filter === "all" || s.cats.includes(filter))
     .forEach((s, i) => {
@@ -401,6 +439,10 @@ function render(filter){
         </div>`;
       grid.appendChild(card);
     });
+
+  if (bounds.length) {
+    map.flyToBounds(bounds, { padding: [50, 50], maxZoom: 16, duration: 0.6 });
+  }
 }
 
 document.getElementById("controls").addEventListener("click", e => {
