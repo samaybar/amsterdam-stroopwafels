@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Best Stroopwafels in Amsterdam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --syrup: #6b3410;
+    --syrup-deep: #4a2208;
+    --caramel: #c87f33;
+    --caramel-light: #e0a85c;
+    --cream: #f6ead4;
+    --cream-deep: #efdcbb;
+    --waffle: #d99a4e;
+    --ink: #2b1a0d;
+    --card: #fffaf0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 20% -10%, #fbeccb 0%, transparent 45%),
+      radial-gradient(circle at 90% 0%, #f3d9a6 0%, transparent 40%),
+      var(--cream);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+  header.hero {
+    text-align: center;
+    padding: 84px 22px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--syrup);
+    background: var(--cream-deep);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 7vw, 4.8rem);
+    line-height: 1.02;
+    color: var(--syrup-deep);
+    letter-spacing: -0.02em;
+  }
+  h1 .accent { color: var(--caramel); font-style: italic; }
+  .sub {
+    max-width: 560px;
+    margin: 22px auto 0;
+    font-size: 1.12rem;
+    color: #5c4326;
+  }
+  .meta-row {
+    margin-top: 30px;
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.92rem;
+    color: #6b4f30;
+  }
+  .meta-row b { color: var(--syrup-deep); font-weight: 600; }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 8px auto 44px;
+  }
+  .chip {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--cream-deep);
+    background: var(--card);
+    color: #6b4f30;
+    padding: 9px 18px;
+    border-radius: 999px;
+    transition: all 0.16s ease;
+  }
+  .chip:hover { border-color: var(--caramel-light); }
+  .chip.active {
+    background: var(--syrup);
+    border-color: var(--syrup);
+    color: var(--cream);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+    padding-bottom: 60px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--cream-deep);
+    border-radius: 20px;
+    padding: 26px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -20px rgba(107, 52, 16, 0.4);
+  }
+  .rank {
+    position: absolute;
+    top: -14px; left: 22px;
+    width: 36px; height: 36px;
+    background: var(--syrup);
+    color: var(--cream);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px -3px rgba(74,34,8,0.6);
+  }
+  .card h2 {
+    font-family: "Fraunces", serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--syrup-deep);
+    margin: 10px 0 4px;
+    line-height: 1.12;
+  }
+  .stars { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 0.9rem; }
+  .stars .score {
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--cream-deep);
+    padding: 2px 9px;
+    border-radius: 7px;
+  }
+  .stars .count { color: #8a7252; }
+  .blurb { font-size: 0.96rem; color: #4f3a22; flex-grow: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 18px; }
+  .tag {
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background: var(--cream);
+    border: 1px solid var(--cream-deep);
+    color: #7a5c34;
+    padding: 4px 10px;
+    border-radius: 7px;
+  }
+  .tag.price { color: var(--syrup); border-color: var(--caramel-light); }
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px dashed var(--cream-deep);
+    padding-top: 14px;
+    font-size: 0.84rem;
+    color: #8a7252;
+  }
+  .foot .addr { max-width: 64%; }
+  .maplink {
+    font-weight: 600;
+    color: var(--caramel);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .maplink:hover { color: var(--syrup); }
+
+  footer {
+    text-align: center;
+    padding: 40px 22px 60px;
+    color: #8a7252;
+    font-size: 0.86rem;
+    border-top: 1px solid var(--cream-deep);
+  }
+  footer a { color: var(--syrup); }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="badge">Amsterdam · Field Guide</span>
+      <h1>The Best <span class="accent">Stroopwafels</span><br />in Amsterdam</h1>
+      <p class="sub">Warm, gooey, caramel-filled and pressed fresh in front of you. A hand-picked guide to the spots locals and visitors rate highest — skip the tourist traps.</p>
+      <div class="meta-row">
+        <span><b>9</b> curated spots</span>
+        <span><b>Fresh-pressed</b> prioritized</span>
+        <span><b>Ratings</b> via Google</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="controls" id="controls">
+      <button class="chip active" data-filter="all">All spots</button>
+      <button class="chip" data-filter="fresh">Pressed fresh</button>
+      <button class="chip" data-filter="value">Best value</button>
+      <button class="chip" data-filter="classic">Old-school classic</button>
+      <button class="chip" data-filter="experience">Make-your-own</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer class="wrap">
+    Ratings and details reflect Google data at time of writing and change often — hours especially (some stalls sell out or open only a few days a week). Built for fun · deployed on Railway 🧇
+  </footer>
+
+<script>
+const spots = [
+  {
+    name: "Rudi's Original Stroopwafels",
+    rating: 4.9, count: 2317, price: "€",
+    area: "Albert Cuypmarkt",
+    address: "Albert Cuypstraat, t/o 182",
+    blurb: "The cult favorite. A market stall with an airport-length queue for a reason — crispy edges, hot caramel, perfect bite, and around €3–4 while tourist spots charge triple. Open only select days, and sells out fast.",
+    tags: ["Fresh-pressed", "€3–4", "Cash-friendly"],
+    cats: ["fresh", "value", "classic"],
+    maps: "https://maps.google.com/?q=Rudi's+Original+Stroopwafels+Amsterdam"
+  },
+  {
+    name: "Lanskroon Bakery",
+    rating: 4.6, count: 1365, price: "€€",
+    area: "Singel canal",
+    address: "Singel 385",
+    blurb: "A proper old bakery famous for its honey stroopwafel — not too sweet, balanced with a touch of salt. Crispier and lighter than the modern style. The honey ones sell out, so come early. Travels home well.",
+    tags: ["Honey filling", "Less sweet", "Canal-side"],
+    cats: ["classic", "value"],
+    maps: "https://maps.google.com/?q=Lanskroon+Bakery+Amsterdam"
+  },
+  {
+    name: "Hans Egstorf (Spuistraat)",
+    rating: 4.8, count: 9451, price: "€€",
+    area: "Spuistraat",
+    address: "Spuistraat 274",
+    blurb: "An 1898 bakery with Delft-tiled walls and serious heritage. Pressed to order, generous caramel, plus flavors like pistachio and strawberry. The smell pulls you in from down the street. Open till late.",
+    tags: ["Fresh-pressed", "Since 1898", "Flavors"],
+    cats: ["fresh", "classic"],
+    maps: "https://maps.google.com/?q=Hans+Egstorf+Spuistraat+Amsterdam"
+  },
+  {
+    name: "GOUDSE STROOPWAFELS",
+    rating: 4.6, count: 51, price: "€",
+    area: "Albert Cuypmarkt",
+    address: "Albert Cuypstraat 139HS",
+    blurb: "A market stand with a long-but-worth-it queue. Artisanal, generously filled with honey, big, and cheap — and you watch them being made. A local-leaning pick on the same street as Rudi's.",
+    tags: ["Fresh-pressed", "Generous honey", "Market stall"],
+    cats: ["fresh", "value"],
+    maps: "https://maps.google.com/?q=Goudse+Stroopwafels+Albert+Cuypstraat+Amsterdam"
+  },
+  {
+    name: "Van Holland Stroopwafels",
+    rating: 4.8, count: 2151, price: "€€",
+    area: "Kalverstraat",
+    address: "Kalverstraat 198",
+    blurb: "Beautifully fitted-out shop with notably kind staff who check that you loved it. Pressed fresh, generous toppings, and one of the few reliable spots for freshly-made vegan stroopwafels. Pricier, central.",
+    tags: ["Fresh-pressed", "Vegan option", "Friendly"],
+    cats: ["fresh"],
+    maps: "https://maps.google.com/?q=Van+Holland+Stroopwafels+Kalverstraat+Amsterdam"
+  },
+  {
+    name: "Melly's StroopWafels",
+    rating: 4.6, count: 1077, price: "€€",
+    area: "Nieuwezijds Voorburgwal",
+    address: "Nieuwezijds Voorburgwal 141",
+    blurb: "A cozy single-location shop run across generations. Well-balanced sweetness, great texture, and a fun warm biscotti version. They also run a hands-on workshop where you bake your own and hear the history.",
+    tags: ["Cozy café", "Workshop", "Coffee"],
+    cats: ["fresh", "experience"],
+    maps: "https://maps.google.com/?q=Melly's+StroopWafels+Amsterdam"
+  },
+  {
+    name: "HappyWafel — Albert Cuypmarkt",
+    rating: 4.5, count: 268, price: "€",
+    area: "Albert Cuypmarkt",
+    address: "Albert Cuypstraat 241/243, stal 215",
+    blurb: "A tiny market stall where the owner presses each one fresh and warm — gooey caramel center, thin and chewy. Outdoor market setting surrounded by other food vendors. Open just a few days a week.",
+    tags: ["Fresh-pressed", "Market stall", "Warm"],
+    cats: ["fresh", "value"],
+    maps: "https://maps.google.com/?q=HappyWafel+Albert+Cuypmarkt+Amsterdam"
+  },
+  {
+    name: "Hans Egstorf (Nieuwendijk)",
+    rating: 4.9, count: 998, price: "€€",
+    area: "Nieuwendijk",
+    address: "Nieuwendijk 144",
+    blurb: "The chain's highest-rated branch — a posh, central shop with many flavors and toppings, all pressed fresh. Also sells gift tins. A touch pricier than the market stalls, but no queue and consistently great.",
+    tags: ["Fresh-pressed", "Flavors", "Gift tins"],
+    cats: ["fresh"],
+    maps: "https://maps.google.com/?q=Hans+Egstorf+Nieuwendijk+Amsterdam"
+  },
+  {
+    name: "Flagship Waffle Experience",
+    rating: 4.9, count: 278, price: "€€",
+    area: "Jordaan / Bloemgracht",
+    address: "Bloemgracht 2H",
+    blurb: "Not a shop but a 45–60 min workshop: make and decorate two big stroopwafels with unlimited toppings, learn the history, sip tea or coffee, and take them to go. A fun, hands-on alternative to grabbing one on the street.",
+    tags: ["Make-your-own", "~1 hour", "Group fun"],
+    cats: ["experience"],
+    maps: "https://maps.google.com/?q=Flagship+Waffle+Experience+Stroopwafel+Workshop+Amsterdam"
+  }
+];
+
+const grid = document.getElementById("grid");
+
+function render(filter){
+  grid.innerHTML = "";
+  spots
+    .filter(s => filter === "all" || s.cats.includes(filter))
+    .forEach((s, i) => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="rank">${i + 1}</div>
+        <h2>${s.name}</h2>
+        <div class="stars">
+          <span class="score">★ ${s.rating.toFixed(1)}</span>
+          <span class="count">${s.count.toLocaleString()} reviews</span>
+        </div>
+        <p class="blurb">${s.blurb}</p>
+        <div class="tags">
+          <span class="tag price">${s.price}</span>
+          ${s.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+        </div>
+        <div class="foot">
+          <span class="addr">${s.area} · ${s.address}</span>
+          <a class="maplink" href="${s.maps}" target="_blank" rel="noopener">Map ↗</a>
+        </div>`;
+      grid.appendChild(card);
+    });
+}
+
+document.getElementById("controls").addEventListener("click", e => {
+  const btn = e.target.closest(".chip");
+  if (!btn) return;
+  document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+  render(btn.dataset.filter);
+});
+
+render("all");
+</script>
+</body>
+</html>
