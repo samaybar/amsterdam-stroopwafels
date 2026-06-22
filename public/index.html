@@ -403,7 +403,7 @@ const markers = spots.map((s, i) => {
   return m;
 });
 
-function render(filter){
+function render(filter, animate = true){
   grid.innerHTML = "";
   const bounds = [];
   spots.forEach((s, i) => {
