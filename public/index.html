@@ -441,7 +441,7 @@ function render(filter, animate = true){
     });
 
   if (bounds.length) {
-    map.flyToBounds(bounds, { padding: [50, 50], maxZoom: 16, duration: 0.6 });
+    map.flyToBounds(bounds, { padding: [50, 50], maxZoom: 16, duration: animate ? 0.6 : 0 });
   }
 }
 
