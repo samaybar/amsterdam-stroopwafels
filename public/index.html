@@ -166,6 +166,52 @@
     border-radius: 7px;
   }
   .tag.price { color: var(--syrup); border-color: var(--caramel-light); }
+
+  #map {
+    height: 460px;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--cream-deep);
+    margin-bottom: 40px;
+    box-shadow: 0 18px 40px -24px rgba(107, 52, 16, 0.45);
+    z-index: 0;
+  }
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  .leaflet-popup-content { margin: 12px 14px; }
+  .pop-name {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--syrup-deep);
+    margin-bottom: 3px;
+  }
+  .pop-meta { font-size: 0.82rem; color: #8a7252; margin-bottom: 8px; }
+  .pop-meta b { color: var(--ink); }
+  .pop-link {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--caramel);
+    text-decoration: none;
+  }
+  .marker-pin {
+    background: var(--syrup);
+    color: var(--cream);
+    width: 30px; height: 30px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 2px solid var(--cream);
+    box-shadow: 0 3px 8px -2px rgba(74,34,8,0.7);
+    display: grid; place-items: center;
+  }
+  .marker-pin span {
+    transform: rotate(45deg);
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
   .foot {
     display: flex;
     align-items: center;
