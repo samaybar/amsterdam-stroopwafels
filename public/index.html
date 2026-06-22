@@ -453,7 +453,8 @@ document.getElementById("controls").addEventListener("click", e => {
   render(btn.dataset.filter);
 });
 
-render("all");
+render("all", false);
+setTimeout(() => { map.invalidateSize(); render("all", false); }, 200);
 </script>
 </body>
 </html>
